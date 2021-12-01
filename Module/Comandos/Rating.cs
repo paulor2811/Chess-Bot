@@ -34,8 +34,12 @@ namespace Chess_Bot.Module.Comandos
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--headless");
             driver = new ChromeDriver(options);
+
             driver.Navigate().GoToUrl("https://www.chess.com/stats/overview/" + player);
 
+            //Espera o carregamento dos elesmentos da página
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(5);
+            
             ratingRapidas = driver.FindElement(By.CssSelector("#vue-instance > section > a:nth-child(5) > span.footer-block-title")).Text;
             ratingBlitz = driver.FindElement(By.CssSelector("#vue-instance > section > a:nth-child(3) > span.footer-block-title")).Text;
             ratingBullet = driver.FindElement(By.CssSelector("#vue-instance > section > a:nth-child(4) > span.footer-block-title")).Text;
